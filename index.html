@@ -487,7 +487,7 @@ function notifyModal(b,kind,mailed=false){
   const group=(title,phoneIntl,mail)=>`<div class="sendgrp"><h4>${title}</h4><div class="row">
     <a class="btn sm" href="sms:${phoneIntl}?body=${body}">💬 SMS</a>
     <a class="btn sm" target="_blank" rel="noopener" href="https://wa.me/${phoneIntl.replace('+','')}?text=${body}">🟢 WhatsApp</a>
-    <a class="btn ghost sm" href="mailto:${mail}?subject=${subj}&body=${body}">✉ Email</a></div></div>`;
+    <a class="btn ghost sm" target="_blank" rel="noopener" href="${/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?`mailto:${mail}?subject=${subj}&body=${body}`:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mail)}&su=${subj}&body=${body}`}">✉ Email</a></div></div>`;
   modal(kind==='request'?'Booking request saved ✔':'Booking confirmed ✔',
    `<p style="margin-top:0">${kind==='request'
      ?'Your request <b>'+b.ref+'</b> was sent to our staff. Save this link to check your booking and print it once it is confirmed:<br><a href="'+bookingLink(b)+'">'+bookingLink(b)+'</a><br><br>To get attention faster you can also message our office:'
@@ -710,8 +710,14 @@ document.addEventListener('click',e=>{
       const b=await setBookingStatus(id,'confirmed');if(!b)return;
       const t=msgText(b,'confirmed');
       const m1=await sendEmail(b.email,'Booking confirmed '+b.ref,t);await sendEmail(CO.email,'Booking confirmed '+b.ref,t);
+      if(!m1)toast('Booking confirmed, but the email to the customer could not be sent. Use Send message to try again.','err');
       notifyModal(b,'confirmed',m1)})();
-    case 'resend':return notifyModal(findB(id),'confirmed');
+    case 'resend':return (async()=>{
+      const b=findB(id);if(!b)return;
+      const t=msgText(b,'confirmed');
+      const m1=await sendEmail(b.email,'Booking confirmed '+b.ref,t);await sendEmail(CO.email,'Booking confirmed '+b.ref,t);
+      if(!m1)toast('The email could not be sent. Check the customer email address.','err');
+      notifyModal(b,'confirmed',m1)})();
     case 'completeBooking':return (async()=>{if(await setBookingStatus(id,'completed'))toast('Marked as returned. Car is available again.')})();
     case 'delBooking':return confirmBox('Delete this booking record permanently?',()=>del('bookings/'+id,'Booking deleted.'));
     case 'addVehicle':return modal('Add vehicle',vehicleForm());
