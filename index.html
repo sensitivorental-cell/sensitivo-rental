@@ -4,20 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sensitivo Rental Ltd – We Work For Your Comfort</title>
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("sr_theme")==="light"?"light":"dark")}catch(e){}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0d0d0f">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Sensitivo Rental">
 <style>
-:root{--bg:#0d0d0f;--card:#18181b;--card2:#202024;--line:#2e2e33;--gold:#d4a843;--gold2:#f0cd7a;--text:#f3f1ea;--mute:#a9a69b;--ok:#2fb86b;--bad:#e5524a;--warn:#e8a93a}
+:root{color-scheme:dark;--bg2:#101012;--input:#101012;--hdr:rgba(13,13,15,.94);--note:#f0cd7a;--bg:#0d0d0f;--card:#18181b;--card2:#202024;--line:#2e2e33;--gold:#d4a843;--gold2:#f0cd7a;--text:#f3f1ea;--mute:#a9a69b;--ok:#2fb86b;--bad:#e5524a;--warn:#e8a93a}
+[data-theme=light]{color-scheme:light;--bg:#f6f4ee;--bg2:#ebe8de;--input:#ffffff;--hdr:rgba(246,244,238,.94);--card:#ffffff;--card2:#efece3;--line:#d9d3c2;--gold:#a67c0f;--gold2:#c79a2a;--note:#6b5000;--text:#1b1b1d;--mute:#5f5c52;--ok:#1f8f52;--bad:#c4382f;--warn:#b27a10}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.5}
 a{color:var(--gold)}
 img{max-width:100%}
 .wrap{max-width:1150px;margin:0 auto;padding:0 16px}
-header.top{position:sticky;top:0;z-index:20;background:rgba(13,13,15,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top{position:sticky;top:0;z-index:20;background:var(--hdr);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:16px;padding:8px 0;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;color:var(--text)}
 .brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
@@ -53,7 +55,7 @@ h2.title::after{content:"";display:block;width:56px;height:3px;background:var(--
 .svc .ic{font-size:36px}
 .svc h3{margin:8px 0 4px;color:var(--gold)}
 .svc p{color:var(--mute);margin:0;font-size:14px}
-.car .pic{position:relative;aspect-ratio:16/10;background:#101012}
+.car .pic{position:relative;aspect-ratio:16/10;background:var(--bg2)}
 .car .pic img{width:100%;height:100%;object-fit:cover;display:block}
 .badge{position:absolute;top:10px;left:10px;font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;letter-spacing:.4px}
 .badge.av{background:var(--ok);color:#06210f}
@@ -87,23 +89,23 @@ th{color:var(--gold);font-weight:600;font-size:12px;text-transform:uppercase;let
 .auth h2{margin-top:0}
 form .f{margin-bottom:12px}
 label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
-input,select,textarea{width:100%;background:#101012;border:1px solid var(--line);color:var(--text);font:inherit;padding:10px 12px;border-radius:9px}
+input,select,textarea{width:100%;background:var(--input);border:1px solid var(--line);color:var(--text);font:inherit;padding:10px 12px;border-radius:9px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);border-color:transparent}
 input[type=file]{padding:8px}
 .two{display:grid;gap:12px;grid-template-columns:1fr 1fr}
 @media(max-width:520px){.two{grid-template-columns:1fr}}
 .swap{text-align:center;color:var(--mute);font-size:14px;margin-top:14px}
 .swap a{cursor:pointer}
-.note{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.35);color:var(--gold2);padding:10px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px}
+.note{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.35);color:var(--note);padding:10px 14px;border-radius:10px;font-size:13.5px;margin-bottom:14px}
 dialog{background:var(--card);color:var(--text);border:1px solid var(--gold);border-radius:16px;padding:0;width:min(560px,94vw);max-height:92vh}
 dialog::backdrop{background:rgba(0,0,0,.75)}
 dialog .mh{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
 dialog .mh h3{margin:0;color:var(--gold)}
 dialog .mb{padding:18px 20px;overflow:auto;max-height:70vh}
 dialog .x{background:none;border:0;color:var(--text);font-size:24px;cursor:pointer;line-height:1}
-.thumb{width:84px;height:54px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#101012}
+.thumb{width:84px;height:54px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:var(--bg2)}
 .preview{width:100%;max-height:200px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid var(--line)}
-.msgbox{background:#101012;border:1px dashed var(--line);border-radius:10px;padding:12px;font-size:13.5px;white-space:pre-wrap;margin-bottom:14px}
+.msgbox{background:var(--input);border:1px dashed var(--line);border-radius:10px;padding:12px;font-size:13.5px;white-space:pre-wrap;margin-bottom:14px}
 .sendgrp{margin-bottom:14px}
 .sendgrp h4{margin:0 0 8px;font-size:14px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gold);color:#111;padding:11px 20px;border-radius:10px;font-weight:600;z-index:99;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:92vw}
@@ -119,7 +121,7 @@ footer b{color:var(--gold)}
 .lb img{max-height:92vh;border-radius:10px}
 .hide{display:none!important}
 .setup{max-width:720px;margin:40px auto}
-.setup code{background:#101012;padding:2px 6px;border-radius:5px}
+.setup code{background:var(--bg2);padding:2px 6px;border-radius:5px}
 </style>
 </head>
 <body>
@@ -154,6 +156,15 @@ const FIREBASE_CONFIG={
 const EMAILJS={serviceId:"service_koan6j5",templateId:"template_03zdbyx",publicKey:"jYOrY1GpHFIUEAj5r"};
 
 const CO={name:'Sensitivo Rental Ltd',motto:'We Work For Your Comfort',phone:'0788758066',intl:'250788758066',email:'sensitivorental@gmail.com',cur:'RWF'};
+
+/* ================= THEME ================= */
+const curTheme=()=>document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('sr_theme',t)}catch(e){}
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='light'?'#f6f4ee':'#0d0d0f';
+  renderNav();
+}
 
 /* ================= HELPERS ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -193,11 +204,11 @@ const authErr=e=>({
 const CONFIGURED=!String(FIREBASE_CONFIG.apiKey).startsWith('PASTE');
 let auth,fdb;
 if(CONFIGURED){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();fdb=firebase.firestore()}
-const DB={vehicles:[],prices:[],gallery:[],bookings:[],users:[],logo:null,code:''};
-let profile=null,ready=!CONFIGURED,busy=false,view='home',staffTab='bookings',authMode={customer:'login',staff:'login'},afterLogin=null;
+const DB={viewed:[],vehicles:[],prices:[],gallery:[],bookings:[],users:[],logo:null,code:''};
+let anonFailed=false,profile=null,ready=!CONFIGURED,busy=false,view='home',staffTab='bookings',authMode={customer:'login',staff:'login'},afterLogin=null;
 const me=()=>profile;
 const isStaff=()=>profile&&profile.role==='staff';
-const isCust=()=>profile&&profile.role==='customer';
+const isCust=()=>!isStaff();
 const mapDocs=s=>s.docs.map(d=>({id:d.id,...d.data()}));
 let privUnsubs=[];
 const onErr=e=>{console.error(e);if(e.code==='permission-denied')toast('Permission denied. Check the Firestore rules (see SETUP-GUIDE.txt).','err')};
@@ -209,17 +220,18 @@ function startPublic(){
 }
 function startPrivate(){
   privUnsubs.forEach(f=>f());privUnsubs=[];DB.bookings=[];DB.users=[];DB.code='';
-  if(!profile)return;
+  if(!profile&&!auth.currentUser)return;
   if(isStaff()){
     privUnsubs.push(fdb.collection('bookings').onSnapshot(s=>{DB.bookings=mapDocs(s);soft()},onErr));
     privUnsubs.push(fdb.collection('users').onSnapshot(s=>{DB.users=mapDocs(s);soft()},onErr));
     privUnsubs.push(fdb.doc('config/staff').onSnapshot(s=>{DB.code=s.exists?s.data().code:'';soft()},onErr));
   }else{
-    privUnsubs.push(fdb.collection('bookings').where('customerId','==',profile.id).onSnapshot(s=>{DB.bookings=mapDocs(s);soft()},onErr));
+    privUnsubs.push(fdb.collection('bookings').where('customerId','==',auth.currentUser.uid).onSnapshot(s=>{DB.bookings=mapDocs(s);soft()},onErr));
   }
 }
 async function loadProfile(user){
   if(!user){profile=null;startPrivate();return}
+  if(user.isAnonymous){profile=null;startPrivate();return}
   const s=await fdb.doc('users/'+user.uid).get();
   profile=s.exists?{id:user.uid,...s.data()}:null;
   startPrivate();
@@ -228,6 +240,7 @@ if(CONFIGURED){
   startPublic();
   auth.onAuthStateChanged(async u=>{
     if(busy)return;
+    if(!u){try{await auth.signInAnonymously();return}catch(e){console.error(e);anonFailed=true}}
     try{await loadProfile(u)}catch(e){console.error(e);profile=null}
     ready=true;render();
   });
@@ -247,9 +260,10 @@ async function sendEmail(to,subject,message){
 function go(v){view=v;render();scrollTo(0,0)}
 function renderNav(){
   const u=me();
-  const items=[['home','Home'],['cars','Cars'],['prices','Prices'],['customer','Customer'],['staff','Staff']];
+  const items=[['home','Home'],['cars','Cars'],['prices','Prices'],['customer','My bookings'],['staff','Staff']];
   $('#nav').innerHTML=items.map(([k,l])=>`<button data-go="${k}" class="${view===k?'on':''}">${l}</button>`).join('')
     +(u?`<span class="who">${esc(u.username||u.name)} (${u.role})</span><button data-act="logout">Log out</button>`:'')
+    +`<button data-act="theme" title="Switch light or dark mode">${curTheme()==='light'?'🌙 Dark':'☀ Light'}</button>`
     +(window.deferredInstall?`<button data-act="install">⬇ Install app</button>`:"")
     +`<a class="btn sm" href="tel:+${CO.intl}">📞 ${CO.phone}</a>`;
   $('#brandLogo').innerHTML=logoImg();
@@ -265,7 +279,7 @@ function render(){
   const app=$('#app');
   if(!CONFIGURED){app.innerHTML=vSetup();return}
   if(!ready){app.innerHTML='<div class="empty">Loading…</div>';return}
-  app.innerHTML=({home:vHome,cars:vCars,prices:vPrices,customer:vCustomer,staff:vStaff}[view])();
+  app.innerHTML=({home:vHome,cars:vCars,prices:vPrices,customer:vCustomer,booking:vBooking,staff:vStaff}[view])();
 }
 /* used by live database updates: don't wipe a form someone is typing in */
 function soft(){
@@ -295,13 +309,13 @@ function vHome(){
       <div class="card pad svc"><div class="ic">🔑</div><h3>Car sales</h3><p>Quality vehicles at fair prices.</p></div>
       
     </div></div></section>
-  <section class="block" style="background:#101012"><div class="wrap"><h2 class="title">Available cars</h2><p class="sub">Ready to go today.</p>
+  <section class="block" style="background:var(--bg2)"><div class="wrap"><h2 class="title">Available cars</h2><p class="sub">Ready to go today.</p>
     ${avail.length?`<div class="grid">${avail.map(carCard).join('')}</div>`:'<div class="empty">No cars available right now. Please call '+CO.phone+'.</div>'}
     <p style="margin-top:20px"><button class="btn ghost" data-go="cars">See all cars</button></p></div></section>
   <section class="block"><div class="wrap"><h2 class="title">Gallery</h2><p class="sub">A look at our fleet.</p>
     ${DB.gallery.length?`<div class="gal">${DB.gallery.map(g=>`<figure data-act="zoom" data-id="${g.id}"><img src="${g.src}" alt="${esc(g.title)}"><figcaption>${esc(g.title)}</figcaption></figure>`).join('')}</div>`
     :`<div class="empty card">No pictures yet.${isStaff()?' Add some from the Staff page → Pictures.':''}</div>`}</div></section>
-  <section class="block" style="background:#101012"><div class="wrap"><h2 class="title">Our prices</h2><p class="sub">All prices are in Rwandan francs (RWF).</p>${priceTable()}
+  <section class="block" style="background:var(--bg2)"><div class="wrap"><h2 class="title">Our prices</h2><p class="sub">All prices are in Rwandan francs (RWF).</p>${priceTable()}
     <p style="margin-top:16px"><button class="btn ghost" data-go="prices">Full price list</button></p></div></section>`;
 }
 function vCars(){
@@ -353,7 +367,8 @@ async function doLogin(f,role){
     await loadProfile(c.user);
     if(!profile||profile.role!==role){
       const other=profile?profile.role:null;
-      await auth.signOut();profile=null;startPrivate();
+      await auth.signOut();profile=null;
+      try{const g=await auth.signInAnonymously();await loadProfile(g.user)}catch(e){startPrivate()}
       toast(other?`That is a ${other} account. Use the ${other==='staff'?'Staff':'Customer'} page.`:'No account found for this email. Please sign up.','err');
       return render();
     }
@@ -377,7 +392,7 @@ async function doSignup(f,role){
     try{await fdb.doc('users/'+cred.user.uid).set(data)}
     catch(e){
       await cred.user.delete().catch(()=>{});
-      busy=false;
+      busy=false;auth.signInAnonymously().catch(()=>{});
       return toast(role==='staff'&&e.code==='permission-denied'?'Wrong staff access code.':authErr(e),'err');
     }
     const keep={...data};delete keep.accessCode;
@@ -394,61 +409,78 @@ async function resetPw(role){
 }
 
 /* ================= CUSTOMER PAGE ================= */
-function vCustomer(){
-  if(!isCust())return `<section class="block"><div class="wrap">${authForm('customer')}${isStaff()?'<p class="swap">You are logged in as staff. Log out to use a customer account.</p>':''}</div></section>`;
-  const u=me(),mine=[...DB.bookings].sort((a,b)=>b.created-a.created);
-  return `<section class="block"><div class="wrap">
-  <div class="toolbar"><div><h2 class="title">My account</h2></div><button class="btn" data-go="cars">+ Book a car</button></div>
-  <div class="card pad" style="margin-bottom:22px"><div class="two">
-    <div><label>Name</label><b>${esc(u.name)}</b></div><div><label>Email</label><b>${esc(u.email)}</b></div>
-    <div><label>Phone number</label><b>${esc(u.phone)}</b></div><div><label>Address</label><b>${esc(u.address)}</b></div></div>
-    <p style="margin:12px 0 0"><button class="btn ghost sm" data-act="editProfile">Edit my details</button></p></div>
-  <h3>My bookings</h3>
-  ${mine.length?`<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Car</th><th>Dates</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>
-  ${mine.map(b=>`<tr><td><b>${b.ref}</b></td><td>${esc(b.vehicleName)}</td><td>${fmtDate(b.start)} → ${fmtDate(b.end)}<br><small style="color:var(--mute)">${b.days} day(s)</small></td><td>${money(b.total)}</td>
+let viewState='';
+const bookingLink=b=>location.origin+location.pathname.replace(/index\.html$/,'')+'?booking='+b.id;
+function bookingRows(list){
+  return `<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Car</th><th>Dates</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>
+  ${list.map(b=>`<tr><td><b>${b.ref}</b></td><td>${esc(b.vehicleName)}</td><td>${fmtDate(b.start)} → ${fmtDate(b.end)}<br><small style="color:var(--mute)">${b.days} day(s)</small></td><td>${money(b.total)}</td>
   <td><span class="pill ${b.status}">${b.status}</span></td>
-  <td class="row">${b.status==='confirmed'||b.status==='completed'?`<button class="btn sm" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?`<small style="color:var(--mute)">Waiting for confirmation</small><button class="btn danger sm" data-act="cancelBooking" data-id="${b.id}">Cancel</button>`:''}</td></tr>`).join('')}</tbody></table></div>`
-  :'<div class="empty card">You have no bookings yet.</div>'}</div></section>`;
+  <td><div class="row">${b.status==='confirmed'||b.status==='completed'?`<button class="btn sm" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?`<small style="color:var(--mute)">Waiting for confirmation</small><button class="btn danger sm" data-act="cancelBooking" data-id="${b.id}">Cancel</button>`:''}<button class="btn ghost sm" data-act="copyLink" data-id="${b.id}">Copy link</button></div></td></tr>`).join('')}</tbody></table></div>`;
 }
-const daysBetween=(a,b)=>{if(!a||!b)return 0;const d=Math.round((new Date(b)-new Date(a))/864e5);return d>0?d:0};
+function vCustomer(){
+  const mine=[...DB.bookings].sort((a,b)=>b.created-a.created);
+  return `<section class="block"><div class="wrap">
+  <div class="toolbar"><div><h2 class="title">My bookings</h2></div><button class="btn" data-go="cars">+ Book a car</button></div>
+  <p class="note">No account needed. Your bookings are kept on this device. To see a booking on another phone or computer, open its link (it is in your confirmation email).</p>
+  ${isStaff()?'<p class="note">You are logged in as staff, so this list shows every booking. Manage them on the Staff page.</p>':''}
+  ${mine.length?bookingRows(mine):'<div class="empty card">You have no bookings on this device yet.</div>'}</div></section>`;
+}
+function vBooking(){
+  const b=DB.viewed[0];let inner;
+  if(!viewState)inner='<div class="empty">Loading your booking…</div>';
+  else if(!b)inner='<div class="empty card">We could not find that booking. Please check the link or call '+CO.phone+'.</div>';
+  else inner=`<div class="card pad"><div class="two">
+    <div><label>Reference</label><b>${b.ref}</b></div><div><label>Status</label><span class="pill ${b.status}">${b.status}</span></div>
+    <div><label>Car</label><b>${esc(b.vehicleName)}</b></div><div><label>Total</label><b>${money(b.total)}</b></div>
+    <div><label>Pick-up</label><b>${fmtDate(b.start)}</b></div><div><label>Return</label><b>${fmtDate(b.end)}</b></div>
+    <div><label>Name</label><b>${esc(b.name)}</b></div><div><label>Phone</label><b>${esc(b.phone)}</b></div></div>
+    <div class="row" style="margin-top:16px">${b.status==='confirmed'||b.status==='completed'?`<button class="btn" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?'<span class="note" style="margin:0">Waiting for confirmation. We will email you.</span>':''}<a class="btn ghost" href="tel:+${CO.intl}">Call ${CO.phone}</a><button class="btn ghost" data-go="cars">Book another car</button></div></div>`;
+  return `<section class="block"><div class="wrap"><h2 class="title">Your booking</h2><p class="sub">Sensitivo Rental Ltd – ${CO.motto}</p>${inner}</div></section>`;
+}const daysBetween=(a,b)=>{if(!a||!b)return 0;const d=Math.round((new Date(b)-new Date(a))/864e5);return d>0?d:0};
 function bookModal(vid){
   const v=DB.vehicles.find(x=>x.id===vid);if(!v||v.status!=='available')return toast('Sorry, this car is not available.','err');
-  const u=me();
+  let last={};try{last=JSON.parse(localStorage.getItem('sr_lastcust')||'{}')}catch(e){}
   modal('Book '+v.name,`<form data-form="book" data-id="${v.id}">
     <img class="preview" src="${v.img||carPlaceholder}" alt="">
-    <p style="margin-top:0"><b style="color:var(--gold)">${money(v.price)}</b> per day</p>
+    <p style="margin-top:0"><b style="color:var(--gold)">${money(v.price)}</b> per day. No account needed, just fill in your details.</p>
     <div class="two"><div class="f"><label>Pick-up date</label><input type="date" name="start" min="${today()}" value="${today()}" required></div>
     <div class="f"><label>Return date</label><input type="date" name="end" min="${today()}" required></div></div>
-    <div class="f"><label>Full name</label><input name="name" value="${esc(u.name)}" required></div>
-    <div class="two"><div class="f"><label>Phone number</label><input name="phone" value="${esc(u.phone)}" required></div>
-    <div class="f"><label>Email</label><input name="email" type="email" value="${esc(u.email)}" required></div></div>
-    <div class="f"><label>Address</label><input name="address" value="${esc(u.address)}" required></div>
+    <div class="f"><label>Full name</label><input name="name" value="${esc(last.name||'')}" required autocomplete="name"></div>
+    <div class="two"><div class="f"><label>Phone number</label><input name="phone" type="tel" value="${esc(last.phone||'')}" required placeholder="07xx xxx xxx" autocomplete="tel"></div>
+    <div class="f"><label>Email (your confirmation is sent here)</label><input name="email" type="email" value="${esc(last.email||'')}" required autocomplete="email"></div></div>
+    <div class="f"><label>Address</label><input name="address" value="${esc(last.address||'')}" required placeholder="District, sector, street" autocomplete="street-address"></div>
     <div class="f"><label>Notes (optional)</label><textarea name="notes" rows="2" placeholder="Driver needed? Pick-up place?"></textarea></div>
+    <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <p class="note" id="totalLine">Choose the return date to see the total.</p>
     <button class="btn" style="width:100%">Send booking request</button></form>`);
   const f=$('#dBody form'),upd=()=>{const d=daysBetween(f.start.value,f.end.value);$('#totalLine').textContent=d?`${d} day(s) × ${money(v.price)} = ${money(d*v.price)}`:'Return date must be after the pick-up date.'};
   f.start.onchange=()=>{f.end.min=f.start.value;upd()};f.end.onchange=upd;
 }
 async function submitBooking(f){
+  if(f.website&&f.website.value){closeModal();return}
   const v=DB.vehicles.find(x=>x.id===f.dataset.id);
   if(!v||v.status!=='available')return toast('This car was just booked.','err');
   const days=daysBetween(f.start.value,f.end.value);
   if(!days)return toast('Return date must be after pick-up date.','err');
+  if(normPhone(f.phone.value).length<10)return toast('Enter a valid phone number.','err');
+  if(!auth.currentUser){try{await auth.signInAnonymously()}catch(e){return toast('Online booking is not switched on yet. Please call '+CO.phone+'.','err')}}
   const ref=fdb.collection('bookings').doc();
-  const b={ref:'SR-'+Date.now().toString(36).toUpperCase().slice(-6),vehicleId:v.id,vehicleName:v.name,customerId:me().id,
+  const b={ref:'SR-'+Date.now().toString(36).toUpperCase().slice(-6),vehicleId:v.id,vehicleName:v.name,customerId:auth.currentUser.uid,
     name:f.name.value.trim(),phone:f.phone.value.trim(),email:f.email.value.trim(),address:f.address.value.trim(),notes:f.notes.value.trim(),
     start:f.start.value,end:f.end.value,days,rate:v.price,total:days*v.price,status:'pending',created:Date.now()};
-  try{await ref.set(b)}catch(e){return toast('Could not send the booking: '+e.message,'err')}
+  try{await ref.set(b)}catch(e){return toast('Could not send the booking: '+(e.code==='permission-denied'?'permission denied. Please call '+CO.phone+'.':e.message),'err')}
+  try{localStorage.setItem('sr_lastcust',JSON.stringify({name:b.name,phone:b.phone,email:b.email,address:b.address}))}catch(e){}
   closeModal();
-  const mailed=await sendEmail(CO.email,'New booking request '+b.ref,msgText(b,'request'));
-  notifyModal({id:ref.id,...b},'request',mailed);
+  const full={id:ref.id,...b};
+  const mailed=await sendEmail(CO.email,'New booking request '+b.ref,msgText(full,'request'));
+  notifyModal(full,'request',mailed);
 }
-
 /* ================= MESSAGES ================= */
 function msgText(b,kind){
   const base=`Ref: ${b.ref}\nCar: ${b.vehicleName}\nFrom: ${fmtDate(b.start)}  To: ${fmtDate(b.end)} (${b.days} day${b.days>1?'s':''})\nTotal: ${money(b.total)}`;
-  if(kind==='request')return `NEW BOOKING REQUEST – ${CO.name}\nCustomer: ${b.name}\nPhone: ${b.phone}\nAddress: ${b.address}\n${base}\nStatus: Pending confirmation`;
-  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\nQuestions? Call ${CO.phone}.\n${CO.motto}!`;
+  const link=b.id?`\nView or print your booking: ${bookingLink(b)}`:'';
+  if(kind==='request')return `NEW BOOKING REQUEST – ${CO.name}\nCustomer: ${b.name}\nPhone: ${b.phone}\nAddress: ${b.address}\n${base}\nStatus: Pending confirmation${link}`;
+  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\nQuestions? Call ${CO.phone}.${link}\n${CO.motto}!`;
 }
 function notifyModal(b,kind,mailed=false){
   const text=msgText(b,kind),subj=encodeURIComponent((kind==='request'?'Booking request ':'Booking confirmed ')+b.ref),body=encodeURIComponent(text),cp='+'+normPhone(b.phone);
@@ -458,7 +490,7 @@ function notifyModal(b,kind,mailed=false){
     <a class="btn ghost sm" href="mailto:${mail}?subject=${subj}&body=${body}">✉ Email</a></div></div>`;
   modal(kind==='request'?'Booking request saved ✔':'Booking confirmed ✔',
    `<p style="margin-top:0">${kind==='request'
-     ?'Your request <b>'+b.ref+'</b> was sent to our staff. You will see it confirmed under “My bookings”. To get attention faster you can also message our office:'
+     ?'Your request <b>'+b.ref+'</b> was sent to our staff. Save this link to check your booking and print it once it is confirmed:<br><a href="'+bookingLink(b)+'">'+bookingLink(b)+'</a><br><br>To get attention faster you can also message our office:'
      :'Booking <b>'+b.ref+'</b> is confirmed. Send the confirmation message to the customer and to the company:'}</p>
    ${mailed?'<p class="note">✔ An email was sent automatically.</p>':''}
    <div class="msgbox">${esc(text)}</div>
@@ -472,11 +504,6 @@ function notifyModal(b,kind,mailed=false){
 function receiptDoc(b){
   const row=(a,c)=>`<tr><td style="padding:7px 0;color:#666;width:38%">${a}</td><td style="padding:7px 0"><b>${esc(c)}</b></td></tr>`;
   return `<!doctype html><html><head><meta charset="utf-8"><title>Booking ${b.ref} – Sensitivo Rental</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0d0d0f">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Sensitivo Rental">
 <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:720px;margin:24px auto;padding:0 20px;color:#111}
 .h{display:flex;align-items:center;gap:16px;border-bottom:4px solid #d4a843;padding-bottom:14px}.h img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #d4a843}
 h1{margin:0;font-size:24px}.m{color:#a8821f;letter-spacing:2px;text-transform:uppercase;font-size:12px}
@@ -494,7 +521,7 @@ ${row('Pick-up date',fmtDate(b.start))}${row('Return date',fmtDate(b.end))}${row
 <div class="f">Thank you for choosing Sensitivo Rental Ltd – ${CO.motto}<br>Car rental • Car sales</div>
 <p class="np" style="text-align:center"><button onclick="print()" style="padding:10px 22px;font-size:15px;cursor:pointer">🖨 Print / Save as PDF</button></p></body></html>`;
 }
-const findB=id=>DB.bookings.find(x=>x.id===id);
+const findB=id=>DB.bookings.find(x=>x.id===id)||DB.viewed.find(x=>x.id===id);
 function receiptModal(id){
   const b=findB(id);if(!b)return;
   modal('Booking '+b.ref,`<p style="margin-top:0">Print a copy, save it as PDF (choose “Save as PDF” in the print window), or download it as a file.</p>
@@ -513,7 +540,7 @@ function dlReceipt(id){
 
 /* ================= STAFF PAGE ================= */
 function vStaff(){
-  if(!isStaff())return `<section class="block"><div class="wrap">${authForm('staff')}${isCust()?'<p class="swap">You are logged in as a customer. Log out to use a staff account.</p>':''}</div></section>`;
+  if(!isStaff())return `<section class="block"><div class="wrap">${authForm('staff')}</div></section>`;
   const pend=DB.bookings.filter(b=>b.status==='pending').length;
   const tabs=[['bookings','Bookings'+(pend?` (${pend})`:'')],['vehicles','Vehicles'],['prices','Prices'],['pictures','Pictures'],['team','Team & settings']];
   const panel={bookings:sBookings,vehicles:sVehicles,prices:sPrices,pictures:sPictures,team:sTeam}[staffTab]();
@@ -665,14 +692,14 @@ document.addEventListener('click',e=>{
   const a=el.dataset.act,id=el.dataset.id;
   switch(a){
     case 'install':{const p=window.deferredInstall;if(!p)return;window.deferredInstall=null;renderNav();p.prompt();return}
+    case 'theme':return setTheme(curTheme()==='light'?'dark':'light');
     case 'logout':return logout();
     case 'reset':return resetPw(el.dataset.role);
     case 'mode':authMode[el.dataset.role]=el.dataset.mode;return render();
     case 'tab':staffTab=el.dataset.tab;return render();
     case 'book':
-      if(isStaff())return toast('Staff accounts cannot book. Use a customer account.','err');
-      if(!isCust()){afterLogin=()=>bookModal(id);toast('Please log in or sign up to book.');authMode.customer='login';return go('customer')}
       return bookModal(id);
+    case 'copyLink':{const b=findB(id);if(!b)return;const l=bookingLink(b);return (navigator.clipboard?navigator.clipboard.writeText(l):Promise.reject()).then(()=>toast('Link copied.')).catch(()=>prompt('Copy this link:',l))}
     case 'zoom':{const gi=DB.gallery.find(x=>x.id===id);const d=document.createElement('div');d.className='lb';d.innerHTML=`<img src="${gi.src}" alt="">`;d.onclick=()=>d.remove();return document.body.appendChild(d)}
     case 'editProfile':return editProfile();
     case 'receipt':return receiptModal(id);
@@ -725,6 +752,15 @@ document.addEventListener('submit',async e=>{
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.deferredInstall=e;renderNav()});
 window.addEventListener('appinstalled',()=>{window.deferredInstall=null;renderNav();toast('App installed.')});
 if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+/* ===== open a booking from its link (?booking=ID) ===== */
+(function(){
+  const qb=new URLSearchParams(location.search).get('booking');
+  if(!qb||!CONFIGURED)return;
+  view='booking';
+  fdb.doc('bookings/'+qb).get()
+    .then(s=>{DB.viewed=s.exists?[{id:s.id,...s.data()}]:[];viewState='done';render()})
+    .catch(()=>{DB.viewed=[];viewState='done';render()});
+})();
 render();
 </script>
 </body>
