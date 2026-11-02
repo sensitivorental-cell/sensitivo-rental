@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sensitivo Rental Ltd – We Work For Your Comfort</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d0d0f">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sensitivo Rental">
 <style>
 :root{--bg:#0d0d0f;--card:#18181b;--card2:#202024;--line:#2e2e33;--gold:#d4a843;--gold2:#f0cd7a;--text:#f3f1ea;--mute:#a9a69b;--ok:#2fb86b;--bad:#e5524a;--warn:#e8a93a}
 *{box-sizing:border-box}
@@ -245,6 +250,7 @@ function renderNav(){
   const items=[['home','Home'],['cars','Cars'],['prices','Prices'],['customer','Customer'],['staff','Staff']];
   $('#nav').innerHTML=items.map(([k,l])=>`<button data-go="${k}" class="${view===k?'on':''}">${l}</button>`).join('')
     +(u?`<span class="who">${esc(u.username||u.name)} (${u.role})</span><button data-act="logout">Log out</button>`:'')
+    +(window.deferredInstall?`<button data-act="install">⬇ Install app</button>`:"")
     +`<a class="btn sm" href="tel:+${CO.intl}">📞 ${CO.phone}</a>`;
   $('#brandLogo').innerHTML=logoImg();
   let f=$('link[rel=icon]');if(!f){f=document.createElement('link');f.rel='icon';document.head.appendChild(f)}f.href=customLogo()||FALLBACK_LOGO;
@@ -466,6 +472,11 @@ function notifyModal(b,kind,mailed=false){
 function receiptDoc(b){
   const row=(a,c)=>`<tr><td style="padding:7px 0;color:#666;width:38%">${a}</td><td style="padding:7px 0"><b>${esc(c)}</b></td></tr>`;
   return `<!doctype html><html><head><meta charset="utf-8"><title>Booking ${b.ref} – Sensitivo Rental</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d0d0f">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sensitivo Rental">
 <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:720px;margin:24px auto;padding:0 20px;color:#111}
 .h{display:flex;align-items:center;gap:16px;border-bottom:4px solid #d4a843;padding-bottom:14px}.h img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #d4a843}
 h1{margin:0;font-size:24px}.m{color:#a8821f;letter-spacing:2px;text-transform:uppercase;font-size:12px}
@@ -653,6 +664,7 @@ document.addEventListener('click',e=>{
   const el=e.target.closest('[data-act]');if(!el)return;
   const a=el.dataset.act,id=el.dataset.id;
   switch(a){
+    case 'install':{const p=window.deferredInstall;if(!p)return;window.deferredInstall=null;renderNav();p.prompt();return}
     case 'logout':return logout();
     case 'reset':return resetPw(el.dataset.role);
     case 'mode':authMode[el.dataset.role]=el.dataset.mode;return render();
@@ -709,6 +721,10 @@ document.addEventListener('submit',async e=>{
   }catch(err){fail(err)}
   finally{if(btn&&document.body.contains(btn))btn.disabled=false}
 });
+/* ===== installable app (PWA) ===== */
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.deferredInstall=e;renderNav()});
+window.addEventListener('appinstalled',()=>{window.deferredInstall=null;renderNav();toast('App installed.')});
+if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 render();
 </script>
 </body>
