@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Sensitivo Rental Ltd – We Work For Your Comfort</title>
 <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("sr_theme")==="light"?"light":"dark")}catch(e){}</script>
 <link rel="manifest" href="manifest.webmanifest">
@@ -122,6 +122,66 @@ footer b{color:var(--gold)}
 .hide{display:none!important}
 .setup{max-width:720px;margin:40px auto}
 .setup code{background:var(--bg2);padding:2px 6px;border-radius:5px}
+/* ===== responsive polish ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.wrap{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+footer{padding-bottom:max(30px,env(safe-area-inset-bottom))}
+.toast{bottom:max(20px,env(safe-area-inset-bottom))}
+header.top{transition:transform .25s ease}
+img,video{height:auto}
+.brand img,.hero img.logo,.thumb,.car .pic img,.gal img,.preview{height:auto}
+.brand img{height:48px}.hero img.logo{height:190px}
+@media(min-width:1400px){.wrap{max-width:1280px}.grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
+@media(max-width:900px){
+  .bar{gap:6px 12px;padding:6px 0;flex-wrap:wrap}
+  nav{width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:2px;padding-bottom:2px}
+  nav::-webkit-scrollbar{display:none}
+  nav>*{flex:0 0 auto;white-space:nowrap}
+  nav button{padding:10px 12px;font-size:14px}
+  header.top.away{transform:translateY(-100%)}
+  .brand img{width:40px;height:40px}
+  .brand b{font-size:16px}
+  .who{display:none}
+}
+@media(max-width:700px){
+  section.block{padding:30px 0}
+  .hero{padding:36px 0 34px}
+  .hero img.logo{width:140px;height:140px}
+  h2.title{font-size:24px}
+  .btn{padding:11px 16px;min-height:44px;justify-content:center}
+  .btn.sm{padding:9px 14px;font-size:13.5px;min-height:40px}
+  input,select,textarea{font-size:16px;padding:12px}
+  .grid{gap:14px}
+  .auth{margin:16px auto}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:16px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:0 0 auto;white-space:nowrap}
+  .stat{grid-template-columns:1fr 1fr}
+  .toolbar{align-items:stretch}
+  dialog{width:100vw;max-width:100vw;max-height:94dvh;margin:auto auto 0 auto;border-radius:18px 18px 0 0}
+  dialog .mb{max-height:calc(94dvh - 62px);padding-bottom:max(18px,env(safe-area-inset-bottom))}
+  /* tables become cards */
+  .tablewrap{overflow:visible;background:none;border:0;border-radius:0}
+  .tablewrap table,.tablewrap tbody,.tablewrap tr,.tablewrap td{display:block;width:100%}
+  .tablewrap thead{display:none}
+  .tablewrap tr{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;padding:6px 0}
+  .tablewrap td{display:flex;justify-content:space-between;align-items:center;gap:14px;border:0;padding:8px 14px;text-align:right}
+  .tablewrap td::before{content:attr(data-label);color:var(--gold);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;text-align:left;flex:0 0 34%}
+  .tablewrap td[data-label=""]::before{display:none}
+  .tablewrap td[data-label=""]{justify-content:flex-start}
+  .tablewrap td .row{justify-content:flex-end}
+  .tablewrap td[data-label=""] .row{justify-content:flex-start}
+}
+@media(max-width:420px){
+  .cta .btn{flex:1 1 100%}
+  .brand small{font-size:10px;letter-spacing:.5px}
+  .brand b{font-size:15px}
+  .stat b{font-size:22px}
+}
+@media(max-width:340px){.brand small{display:none}}
+.tablewrap td>.cell{display:contents}
+@media(max-width:700px){.tablewrap td>.cell{display:block;min-width:0}}
+@media(hover:none){.btn:hover{background:var(--gold)}.btn.ghost:hover{background:transparent}}
 </style>
 </head>
 <body>
@@ -279,7 +339,7 @@ function render(){
   const app=$('#app');
   if(!CONFIGURED){app.innerHTML=vSetup();return}
   if(!ready){app.innerHTML='<div class="empty">Loading…</div>';return}
-  app.innerHTML=({home:vHome,cars:vCars,prices:vPrices,customer:vCustomer,booking:vBooking,staff:vStaff}[view])();
+  app.innerHTML=({home:vHome,cars:vCars,prices:vPrices,customer:vCustomer,booking:vBooking,staff:vStaff}[view])();labelTables();
 }
 /* used by live database updates: don't wipe a form someone is typing in */
 function soft(){
@@ -503,7 +563,7 @@ function notifyModal(b,kind,mailed=false){
 /* ================= RECEIPT ================= */
 function receiptDoc(b){
   const row=(a,c)=>`<tr><td style="padding:7px 0;color:#666;width:38%">${a}</td><td style="padding:7px 0"><b>${esc(c)}</b></td></tr>`;
-  return `<!doctype html><html><head><meta charset="utf-8"><title>Booking ${b.ref} – Sensitivo Rental</title>
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Booking ${b.ref} – Sensitivo Rental</title>
 <style>body{font-family:Segoe UI,Arial,sans-serif;max-width:720px;margin:24px auto;padding:0 20px;color:#111}
 .h{display:flex;align-items:center;gap:16px;border-bottom:4px solid #d4a843;padding-bottom:14px}.h img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #d4a843}
 h1{margin:0;font-size:24px}.m{color:#a8821f;letter-spacing:2px;text-transform:uppercase;font-size:12px}
@@ -754,6 +814,27 @@ document.addEventListener('submit',async e=>{
   }catch(err){fail(err)}
   finally{if(btn&&document.body.contains(btn))btn.disabled=false}
 });
+/* ===== responsive helpers ===== */
+function labelTables(){
+  document.querySelectorAll('#app table').forEach(tb=>{
+    const heads=[...tb.querySelectorAll('thead th')].map(th=>th.textContent.trim());
+    tb.querySelectorAll('tbody tr').forEach(tr=>[...tr.children].forEach((td,i)=>{td.setAttribute('data-label',heads[i]||'');if(!td.firstElementChild||!td.firstElementChild.classList.contains('cell'))td.innerHTML='<span class="cell">'+td.innerHTML+'</span>'}));
+  });
+}
+(function(){
+  const h=document.querySelector('header.top');
+  let lastY=window.scrollY,acc=0;
+  addEventListener('scroll',()=>{
+    const y=window.scrollY,dy=y-lastY;lastY=y;
+    if(innerWidth>900||y<60){h.classList.remove('away');acc=0;return}
+    if(dy===0)return;
+    if((dy>0)!==(acc>0))acc=0;
+    acc+=dy;
+    if(acc>30&&y>120)h.classList.add('away');
+    else if(acc<-30)h.classList.remove('away');
+  },{passive:true});
+  addEventListener('resize',()=>{if(innerWidth>900)h.classList.remove('away')});
+})();
 /* ===== installable app (PWA) ===== */
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.deferredInstall=e;renderNav()});
 window.addEventListener('appinstalled',()=>{window.deferredInstall=null;renderNav();toast('App installed.')});
