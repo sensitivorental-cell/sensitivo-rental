@@ -122,6 +122,8 @@ footer b{color:var(--gold)}
 .hide{display:none!important}
 .setup{max-width:720px;margin:40px auto}
 .setup code{background:var(--bg2);padding:2px 6px;border-radius:5px}
+.contactline{margin:10px 0 0;font-size:17px;color:var(--text)}
+.contactline a{font-weight:600}
 /* ===== responsive polish ===== */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .wrap{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
@@ -192,7 +194,9 @@ img,video{height:auto}
 <main id="app"></main>
 <footer><div class="wrap">
   <p><b>Sensitivo Rental Ltd</b> – We Work For Your Comfort</p>
-  <p>📞 <a href="tel:+250788758066">0788758066</a> · <a href="tel:+250788305742">0788305742</a> · ✉ <a href="mailto:sensitivorental@gmail.com">sensitivorental@gmail.com</a> · Instagram: sensitivo_rental</p>
+  <p>📞 Call: <a href="tel:+250788758066">0788758066</a> / <a href="tel:+250788305742">0788305742</a></p>
+  <p>💬 WhatsApp: <a href="https://wa.me/250788758066" target="_blank" rel="noopener">0788758066</a> / <a href="https://wa.me/250788305742" target="_blank" rel="noopener">0788305742</a></p>
+  <p>✉ <a href="mailto:sensitivorental@gmail.com">sensitivorental@gmail.com</a> · Instagram: sensitivo_rental</p>
   <p>Car rental • Car sales</p>
 </div></footer>
 <dialog id="dlg"><div class="mh"><h3 id="dTitle"></h3><button class="x" id="dX" aria-label="Close">×</button></div><div class="mb" id="dBody"></div></dialog>
@@ -216,6 +220,14 @@ const FIREBASE_CONFIG={
 const EMAILJS={serviceId:"service_koan6j5",templateId:"template_03zdbyx",publicKey:"jYOrY1GpHFIUEAj5r"};
 
 const CO={name:'Sensitivo Rental Ltd',motto:'We Work For Your Comfort',phone:'0788758066',intl:'250788758066',phone2:'0788305742',intl2:'250788305742',momo:'0788758066',momoName:'Fred Gakwaya Benjamin',cancel:'',email:'sensitivorental@gmail.com',cur:'RWF'};
+/* Contact lines: both numbers are shown for calls and for WhatsApp */
+const callLine=()=>`Call: <a href="tel:+${CO.intl}">${CO.phone}</a> / <a href="tel:+${CO.intl2}">${CO.phone2}</a>`;
+const waLine=()=>`WhatsApp: <a href="https://wa.me/${CO.intl}" target="_blank" rel="noopener">${CO.phone}</a> / <a href="https://wa.me/${CO.intl2}" target="_blank" rel="noopener">${CO.phone2}</a>`;
+function contactModal(){
+  modal('Contact us',`<p style="margin-top:0">Call or message us on either number.</p>
+  <h4 style="margin:0 0 8px">Call</h4><div class="row" style="margin-bottom:16px"><a class="btn" href="tel:+${CO.intl}">📞 ${CO.phone}</a><a class="btn" href="tel:+${CO.intl2}">📞 ${CO.phone2}</a></div>
+  <h4 style="margin:0 0 8px">WhatsApp</h4><div class="row"><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${CO.intl}">💬 ${CO.phone}</a><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${CO.intl2}">💬 ${CO.phone2}</a></div>`);
+}
 
 /* ================= THEME ================= */
 const curTheme=()=>document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
@@ -325,7 +337,7 @@ function renderNav(){
     +(u?`<span class="who">${esc(u.username||u.name)} (${u.role})</span><button data-act="logout">Log out</button>`:'')
     +`<button data-act="theme" title="Switch light or dark mode">${curTheme()==='light'?'🌙 Dark':'☀ Light'}</button>`
     +(window.deferredInstall?`<button data-act="install">⬇ Install app</button>`:"")
-    +`<a class="btn sm" href="tel:+${CO.intl}">📞 ${CO.phone}</a>`;
+    +`<a class="btn sm" href="#" data-act="contact">📞 Call / WhatsApp</a>`;
   $('#brandLogo').innerHTML=logoImg();
   let f=$('link[rel=icon]');if(!f){f=document.createElement('link');f.rel='icon';document.head.appendChild(f)}f.href=customLogo()||FALLBACK_LOGO;
 }
@@ -354,7 +366,7 @@ function carCard(v){
   return `<article class="card car"><div class="pic"><img src="${v.img||carPlaceholder}" alt="${esc(v.name)}"><span class="badge ${av?'av':'bk'}">${av?'AVAILABLE':'BOOKED'}</span></div>
   <div class="info"><h3>${esc(v.name)}</h3><div class="meta">${esc(v.type)} · ${v.seats} seats · ${esc(v.trans)}</div>
   <div class="price">${money(v.price)} <small>/ day</small></div>
-  <div class="row"><button class="btn sm" data-act="book" data-id="${v.id}" ${av?'':'disabled'}>${av?'Book now':'Not available'}</button><a class="btn ghost sm" href="tel:+${CO.intl}">Call</a></div></div></article>`;
+  <div class="row"><button class="btn sm" data-act="book" data-id="${v.id}" ${av?'':'disabled'}>${av?'Book now':'Not available'}</button><a class="btn ghost sm" href="#" data-act="contact">Call</a></div></div></article>`;
 }
 function vHome(){
   const avail=DB.vehicles.filter(v=>v.status==='available').slice(0,4);
@@ -362,8 +374,9 @@ function vHome(){
     ${logoImg('logo')}
     <h1>SENSITIVO RENTAL LTD</h1><p class="motto">${CO.motto}</p>
     <p class="lead">Reliable car rental and quality car sales. Pick a car, book online and we confirm it for you.</p>
-    <div class="cta"><button class="btn" data-go="cars">Browse &amp; book a car</button><a class="btn ghost" href="tel:+${CO.intl}">📞 Call ${CO.phone}</a></div>
-    <p class="sub" style="margin:16px 0 0">More ways to reach us: <a href="tel:+${CO.intl2}">${CO.phone2}</a> · <a href="https://wa.me/${CO.intl2}" target="_blank" rel="noopener">WhatsApp</a></p></div></section>
+    <div class="cta"><button class="btn" data-go="cars">Browse &amp; book a car</button></div>
+    <p class="contactline">📞 ${callLine()}</p>
+    <p class="contactline">💬 ${waLine()}</p></div></section>
   <section class="block"><div class="wrap"><h2 class="title">What we offer</h2><p class="sub">Everything for your comfort in one place.</p>
     <div class="grid">
       <div class="card pad svc"><div class="ic">🚗</div><h3>Car rental</h3><p>Daily rentals with or without a driver.</p></div>
@@ -371,7 +384,7 @@ function vHome(){
       
     </div></div></section>
   <section class="block" style="background:var(--bg2)"><div class="wrap"><h2 class="title">Available cars</h2><p class="sub">Ready to go today.</p>
-    ${avail.length?`<div class="grid">${avail.map(carCard).join('')}</div>`:'<div class="empty">No cars available right now. Please call '+CO.phone+'.</div>'}
+    ${avail.length?`<div class="grid">${avail.map(carCard).join('')}</div>`:'<div class="empty">No cars available right now. Please call '+CO.phone+' / '+CO.phone2+'.</div>'}
     <p style="margin-top:20px"><button class="btn ghost" data-go="cars">See all cars</button></p></div></section>
   <section class="block"><div class="wrap"><h2 class="title">Gallery</h2><p class="sub">A look at our fleet.</p>
     ${DB.gallery.length?`<div class="gal">${DB.gallery.map(g=>`<figure data-act="zoom" data-id="${g.id}"><img src="${g.src}" alt="${esc(g.title)}"><figcaption>${esc(g.title)}</figcaption></figure>`).join('')}</div>`
@@ -390,7 +403,7 @@ function priceTable(editable=false){
   ${editable?`<td class="row"><button class="btn ghost sm" data-act="editPrice" data-id="${p.id}">Edit</button><button class="btn danger sm" data-act="delPrice" data-id="${p.id}">Delete</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
 }
 function vPrices(){
-  return `<section class="block"><div class="wrap"><h2 class="title">Price list</h2><p class="sub">Currency: Rwandan francs (RWF). Call <a href="tel:+${CO.intl}">${CO.phone}</a> or <a href="tel:+${CO.intl2}">${CO.phone2}</a> for special deals.</p>${priceTable()}
+  return `<section class="block"><div class="wrap"><h2 class="title">Price list</h2><p class="sub">Currency: Rwandan francs (RWF). For special deals: ${callLine()} · ${waLine()}</p>${priceTable()}
   <h3 style="margin-top:30px">Car daily rates</h3>
   <div class="tablewrap"><table><thead><tr><th>Car</th><th>Type</th><th>Daily rate</th><th>Status</th></tr></thead><tbody>
   ${DB.vehicles.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.type)}</td><td><b style="color:var(--gold)">${money(v.price)}</b></td><td><span class="pill ${v.status==='available'?'confirmed':'cancelled'}">${v.status==='available'?'Available':'Booked'}</span></td></tr>`).join('')||'<tr><td colspan=4>No cars yet.</td></tr>'}</tbody></table></div></div></section>`;
@@ -489,13 +502,13 @@ function vCustomer(){
 function vBooking(){
   const b=DB.viewed[0];let inner;
   if(!viewState)inner='<div class="empty">Loading your booking…</div>';
-  else if(!b)inner='<div class="empty card">We could not find that booking. Please check the link or call '+CO.phone+'.</div>';
+  else if(!b)inner='<div class="empty card">We could not find that booking. Please check the link or call '+CO.phone+' / '+CO.phone2+'.</div>';
   else inner=`<div class="card pad"><div class="two">
     <div><label>Reference</label><b>${b.ref}</b></div><div><label>Status</label><span class="pill ${b.status}">${b.status}</span></div>
     <div><label>Car</label><b>${esc(b.vehicleName)}</b></div><div><label>Total</label><b>${money(b.total)}</b></div>
     <div><label>Pick-up</label><b>${fmtDate(b.start)}</b></div><div><label>Return</label><b>${fmtDate(b.end)}</b></div>
     <div><label>Name</label><b>${esc(b.name)}</b></div><div><label>Phone</label><b>${esc(b.phone)}</b></div></div>
-    ${payBox(b)}<div class="row" style="margin-top:16px">${b.status==='confirmed'||b.status==='completed'?`<button class="btn" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?'<span class="note" style="margin:0">Waiting for confirmation. We will email you.</span>':''}<a class="btn ghost" href="tel:+${CO.intl}">Call ${CO.phone}</a><button class="btn ghost" data-go="cars">Book another car</button></div></div>`;
+    ${payBox(b)}<div class="row" style="margin-top:16px">${b.status==='confirmed'||b.status==='completed'?`<button class="btn" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?'<span class="note" style="margin:0">Waiting for confirmation. We will email you.</span>':''}<a class="btn ghost" href="#" data-act="contact">Call / WhatsApp</a><button class="btn ghost" data-go="cars">Book another car</button></div></div>`;
   return `<section class="block"><div class="wrap"><h2 class="title">Your booking</h2><p class="sub">Sensitivo Rental Ltd – ${CO.motto}</p>${inner}</div></section>`;
 }/* Days are counted inclusively: today to today = 1 day, today to tomorrow = 2 days. */
 const daysBetween=(a,b)=>{if(!a||!b)return 0;const d=Math.round((new Date(b)-new Date(a))/864e5);return d>=0?d+1:0};
@@ -525,12 +538,12 @@ async function submitBooking(f){
   const days=daysBetween(f.start.value,f.end.value);
   if(!days)return toast('The return date cannot be before the pick-up date.','err');
   if(normPhone(f.phone.value).length<10)return toast('Enter a valid phone number.','err');
-  if(!auth.currentUser){try{await auth.signInAnonymously()}catch(e){return toast('Online booking is not switched on yet. Please call '+CO.phone+'.','err')}}
+  if(!auth.currentUser){try{await auth.signInAnonymously()}catch(e){return toast('Online booking is not switched on yet. Please call '+CO.phone+' / '+CO.phone2+'.','err')}}
   const ref=fdb.collection('bookings').doc();
   const b={ref:'SR-'+Date.now().toString(36).toUpperCase().slice(-6),vehicleId:v.id,vehicleName:v.name,customerId:auth.currentUser.uid,
     name:f.name.value.trim(),phone:f.phone.value.trim(),email:f.email.value.trim(),address:f.address.value.trim(),notes:f.notes.value.trim(),
     start:f.start.value,end:f.end.value,days,rate:v.price,total:days*v.price,status:'pending',created:Date.now()};
-  try{await ref.set(b)}catch(e){return toast('Could not send the booking: '+(e.code==='permission-denied'?'permission denied. Please call '+CO.phone+'.':e.message),'err')}
+  try{await ref.set(b)}catch(e){return toast('Could not send the booking: '+(e.code==='permission-denied'?'permission denied. Please call '+CO.phone+' / '+CO.phone2+'.':e.message),'err')}
   try{localStorage.setItem('sr_lastcust',JSON.stringify({name:b.name,phone:b.phone,email:b.email,address:b.address}))}catch(e){}
   closeModal();
   const full={id:ref.id,...b};
@@ -601,7 +614,7 @@ function msgText(b,kind){
   const base=`Ref: ${b.ref}\nCar: ${b.vehicleName}\nFrom: ${fmtDate(b.start)}  To: ${fmtDate(b.end)} (${b.days} day${b.days>1?'s':''})\nTotal: ${money(b.total)}`;
   const link=b.id?`\nView or print your booking: ${bookingLink(b)}`:'';
   if(kind==='request')return `NEW BOOKING REQUEST – ${CO.name}\nCustomer: ${b.name}\nPhone: ${b.phone}\nAddress: ${b.address}\n${base}\nStatus: Pending confirmation\nDeposit to collect after confirmation: ${money(depositDue(b))}${link}`;
-  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\n${payText(b)}\nQuestions? Call ${CO.phone} or ${CO.phone2}.${link}\n${CO.motto}!`;
+  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\n${payText(b)}\nQuestions? Call or WhatsApp: ${CO.phone} / ${CO.phone2}.${link}\n${CO.motto}!`;
 }
 function notifyModal(b,kind,mailed=false){
   const text=msgText(b,kind),subj=encodeURIComponent((kind==='request'?'Booking request ':'Booking confirmed ')+b.ref),body=encodeURIComponent(text),cp='+'+normPhone(b.phone);
@@ -632,7 +645,7 @@ table{width:100%;border-collapse:collapse}tr{border-bottom:1px solid #eee}.tot{b
 .ok{display:inline-block;background:#e6f6ec;color:#17784a;padding:4px 14px;border-radius:99px;font-weight:700}
 .f{text-align:center;color:#666;font-size:13px;border-top:1px solid #ddd;padding-top:12px;margin-top:26px}
 @media print{.np{display:none}body{margin:0}}</style></head><body>
-<div class="h"><img src="${receiptLogo()}" alt=""><div><h1>SENSITIVO RENTAL LTD</h1><div class="m">${CO.motto}</div><div style="font-size:13px;color:#555">Tel: ${CO.phone} / ${CO.phone2} · ${CO.email}</div></div></div>
+<div class="h"><img src="${receiptLogo()}" alt=""><div><h1>SENSITIVO RENTAL LTD</h1><div class="m">${CO.motto}</div><div style="font-size:13px;color:#555">Call / WhatsApp: ${CO.phone} / ${CO.phone2} · ${CO.email}</div></div></div>
 <h2 style="margin:18px 0 4px">Booking confirmation</h2><span class="ok">${b.status==='completed'?'COMPLETED':'CONFIRMED'}</span>
 <p style="color:#666;font-size:13px">Reference <b>${b.ref}</b> · Issued ${new Date().toLocaleDateString('en-GB')}</p>
 <table>${row('Customer',b.name)}${row('Phone',b.phone)}${row('Email',b.email)}${row('Address',b.address)}${row('Vehicle',b.vehicleName)}
@@ -818,6 +831,7 @@ document.addEventListener('click',e=>{
     case 'theme':return setTheme(curTheme()==='light'?'dark':'light');
     case 'addPayment':return modal('Record payment',paymentForm(findB(id)));
     case 'delPayment':{const i=Number(el.dataset.i);return confirmBox('Remove this payment record?',async()=>{const b=findB(id);if(!b)return;const arr=[...(b.payments||[])];arr.splice(i,1);try{await fdb.doc('bookings/'+id).update({payments:arr});toast('Payment removed.')}catch(e){fail(e)}})}
+    case 'contact':e.preventDefault();return contactModal();
     case 'logout':return logout();
     case 'reset':return resetPw(el.dataset.role);
     case 'mode':authMode[el.dataset.role]=el.dataset.mode;return render();
