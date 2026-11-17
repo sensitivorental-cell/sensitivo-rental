@@ -192,7 +192,7 @@ img,video{height:auto}
 <main id="app"></main>
 <footer><div class="wrap">
   <p><b>Sensitivo Rental Ltd</b> – We Work For Your Comfort</p>
-  <p>📞 <a href="tel:+250788758066">0788758066</a> · ✉ <a href="mailto:sensitivorental@gmail.com">sensitivorental@gmail.com</a> · Instagram: sensitivo_rental</p>
+  <p>📞 <a href="tel:+250788758066">0788758066</a> · <a href="tel:+250788305742">0788305742</a> · ✉ <a href="mailto:sensitivorental@gmail.com">sensitivorental@gmail.com</a> · Instagram: sensitivo_rental</p>
   <p>Car rental • Car sales</p>
 </div></footer>
 <dialog id="dlg"><div class="mh"><h3 id="dTitle"></h3><button class="x" id="dX" aria-label="Close">×</button></div><div class="mb" id="dBody"></div></dialog>
@@ -215,7 +215,7 @@ const FIREBASE_CONFIG={
 /* OPTIONAL: automatic emails (free at emailjs.com). Leave empty to skip. */
 const EMAILJS={serviceId:"service_koan6j5",templateId:"template_03zdbyx",publicKey:"jYOrY1GpHFIUEAj5r"};
 
-const CO={name:'Sensitivo Rental Ltd',motto:'We Work For Your Comfort',phone:'0788758066',intl:'250788758066',email:'sensitivorental@gmail.com',cur:'RWF'};
+const CO={name:'Sensitivo Rental Ltd',motto:'We Work For Your Comfort',phone:'0788758066',intl:'250788758066',phone2:'0788305742',intl2:'250788305742',momo:'0788758066',momoName:'Fred Gakwaya Benjamin',cancel:'',email:'sensitivorental@gmail.com',cur:'RWF'};
 
 /* ================= THEME ================= */
 const curTheme=()=>document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
@@ -362,7 +362,8 @@ function vHome(){
     ${logoImg('logo')}
     <h1>SENSITIVO RENTAL LTD</h1><p class="motto">${CO.motto}</p>
     <p class="lead">Reliable car rental and quality car sales. Pick a car, book online and we confirm it for you.</p>
-    <div class="cta"><button class="btn" data-go="cars">Browse &amp; book a car</button><a class="btn ghost" href="tel:+${CO.intl}">📞 Call ${CO.phone}</a></div></div></section>
+    <div class="cta"><button class="btn" data-go="cars">Browse &amp; book a car</button><a class="btn ghost" href="tel:+${CO.intl}">📞 Call ${CO.phone}</a></div>
+    <p class="sub" style="margin:16px 0 0">More ways to reach us: <a href="tel:+${CO.intl2}">${CO.phone2}</a> · <a href="https://wa.me/${CO.intl2}" target="_blank" rel="noopener">WhatsApp</a></p></div></section>
   <section class="block"><div class="wrap"><h2 class="title">What we offer</h2><p class="sub">Everything for your comfort in one place.</p>
     <div class="grid">
       <div class="card pad svc"><div class="ic">🚗</div><h3>Car rental</h3><p>Daily rentals with or without a driver.</p></div>
@@ -389,7 +390,7 @@ function priceTable(editable=false){
   ${editable?`<td class="row"><button class="btn ghost sm" data-act="editPrice" data-id="${p.id}">Edit</button><button class="btn danger sm" data-act="delPrice" data-id="${p.id}">Delete</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
 }
 function vPrices(){
-  return `<section class="block"><div class="wrap"><h2 class="title">Price list</h2><p class="sub">Currency: Rwandan francs (RWF). Call <a href="tel:+${CO.intl}">${CO.phone}</a> for special deals.</p>${priceTable()}
+  return `<section class="block"><div class="wrap"><h2 class="title">Price list</h2><p class="sub">Currency: Rwandan francs (RWF). Call <a href="tel:+${CO.intl}">${CO.phone}</a> or <a href="tel:+${CO.intl2}">${CO.phone2}</a> for special deals.</p>${priceTable()}
   <h3 style="margin-top:30px">Car daily rates</h3>
   <div class="tablewrap"><table><thead><tr><th>Car</th><th>Type</th><th>Daily rate</th><th>Status</th></tr></thead><tbody>
   ${DB.vehicles.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(v.type)}</td><td><b style="color:var(--gold)">${money(v.price)}</b></td><td><span class="pill ${v.status==='available'?'confirmed':'cancelled'}">${v.status==='available'?'Available':'Booked'}</span></td></tr>`).join('')||'<tr><td colspan=4>No cars yet.</td></tr>'}</tbody></table></div></div></section>`;
@@ -472,8 +473,8 @@ async function resetPw(role){
 let viewState='';
 const bookingLink=b=>location.origin+location.pathname.replace(/index\.html$/,'')+'?booking='+b.id;
 function bookingRows(list){
-  return `<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Car</th><th>Dates</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>
-  ${list.map(b=>`<tr><td><b>${b.ref}</b></td><td>${esc(b.vehicleName)}</td><td>${fmtDate(b.start)} → ${fmtDate(b.end)}<br><small style="color:var(--mute)">${b.days} day(s)</small></td><td>${money(b.total)}</td>
+  return `<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Car</th><th>Dates</th><th>Total</th><th>Payment</th><th>Status</th><th></th></tr></thead><tbody>
+  ${list.map(b=>`<tr><td><b>${b.ref}</b></td><td>${esc(b.vehicleName)}</td><td>${fmtDate(b.start)} → ${fmtDate(b.end)}<br><small style="color:var(--mute)">${b.days} day(s)</small></td><td>${money(b.total)}</td><td><span class="pill ${payState(b).cls}">${payState(b).label}</span></td>
   <td><span class="pill ${b.status}">${b.status}</span></td>
   <td><div class="row">${b.status==='confirmed'||b.status==='completed'?`<button class="btn sm" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?`<small style="color:var(--mute)">Waiting for confirmation</small><button class="btn danger sm" data-act="cancelBooking" data-id="${b.id}">Cancel</button>`:''}<button class="btn ghost sm" data-act="copyLink" data-id="${b.id}">Copy link</button></div></td></tr>`).join('')}</tbody></table></div>`;
 }
@@ -494,9 +495,10 @@ function vBooking(){
     <div><label>Car</label><b>${esc(b.vehicleName)}</b></div><div><label>Total</label><b>${money(b.total)}</b></div>
     <div><label>Pick-up</label><b>${fmtDate(b.start)}</b></div><div><label>Return</label><b>${fmtDate(b.end)}</b></div>
     <div><label>Name</label><b>${esc(b.name)}</b></div><div><label>Phone</label><b>${esc(b.phone)}</b></div></div>
-    <div class="row" style="margin-top:16px">${b.status==='confirmed'||b.status==='completed'?`<button class="btn" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?'<span class="note" style="margin:0">Waiting for confirmation. We will email you.</span>':''}<a class="btn ghost" href="tel:+${CO.intl}">Call ${CO.phone}</a><button class="btn ghost" data-go="cars">Book another car</button></div></div>`;
+    ${payBox(b)}<div class="row" style="margin-top:16px">${b.status==='confirmed'||b.status==='completed'?`<button class="btn" data-act="receipt" data-id="${b.id}">Print / Download</button>`:b.status==='pending'?'<span class="note" style="margin:0">Waiting for confirmation. We will email you.</span>':''}<a class="btn ghost" href="tel:+${CO.intl}">Call ${CO.phone}</a><button class="btn ghost" data-go="cars">Book another car</button></div></div>`;
   return `<section class="block"><div class="wrap"><h2 class="title">Your booking</h2><p class="sub">Sensitivo Rental Ltd – ${CO.motto}</p>${inner}</div></section>`;
-}const daysBetween=(a,b)=>{if(!a||!b)return 0;const d=Math.round((new Date(b)-new Date(a))/864e5);return d>0?d:0};
+}/* Days are counted inclusively: today to today = 1 day, today to tomorrow = 2 days. */
+const daysBetween=(a,b)=>{if(!a||!b)return 0;const d=Math.round((new Date(b)-new Date(a))/864e5);return d>=0?d+1:0};
 function bookModal(vid){
   const v=DB.vehicles.find(x=>x.id===vid);if(!v||v.status!=='available')return toast('Sorry, this car is not available.','err');
   let last={};try{last=JSON.parse(localStorage.getItem('sr_lastcust')||'{}')}catch(e){}
@@ -513,7 +515,7 @@ function bookModal(vid){
     <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
     <p class="note" id="totalLine">Choose the return date to see the total.</p>
     <button class="btn" style="width:100%">Send booking request</button></form>`);
-  const f=$('#dBody form'),upd=()=>{const d=daysBetween(f.start.value,f.end.value);$('#totalLine').textContent=d?`${d} day(s) × ${money(v.price)} = ${money(d*v.price)}`:'Return date must be after the pick-up date.'};
+  const f=$('#dBody form'),upd=()=>{const d=daysBetween(f.start.value,f.end.value);$('#totalLine').textContent=d?`${d} day(s) × ${money(v.price)} = ${money(d*v.price)}`:'The return date cannot be before the pick-up date.'};
   f.start.onchange=()=>{f.end.min=f.start.value;upd()};f.end.onchange=upd;
 }
 async function submitBooking(f){
@@ -521,7 +523,7 @@ async function submitBooking(f){
   const v=DB.vehicles.find(x=>x.id===f.dataset.id);
   if(!v||v.status!=='available')return toast('This car was just booked.','err');
   const days=daysBetween(f.start.value,f.end.value);
-  if(!days)return toast('Return date must be after pick-up date.','err');
+  if(!days)return toast('The return date cannot be before the pick-up date.','err');
   if(normPhone(f.phone.value).length<10)return toast('Enter a valid phone number.','err');
   if(!auth.currentUser){try{await auth.signInAnonymously()}catch(e){return toast('Online booking is not switched on yet. Please call '+CO.phone+'.','err')}}
   const ref=fdb.collection('bookings').doc();
@@ -535,12 +537,71 @@ async function submitBooking(f){
   const mailed=await sendEmail(CO.email,'New booking request '+b.ref,msgText(full,'request'));
   notifyModal(full,'request',mailed);
 }
+/* ================= PAYMENTS (MTN MoMo, recorded by staff) ================= */
+/* Deposit = one day's rental (the whole total for a one-day booking); the balance is paid at pick-up.
+   CO.cancel is left empty until the team agrees a cancellation rule; when filled in, it is added to the payment text. */
+const paidSum=b=>(b.payments||[]).reduce((s,p)=>s+(Number(p.amount)||0),0);
+const depositDue=b=>Math.min(Number(b.rate)||Number(b.total)||0,Number(b.total)||0);
+function payState(b){
+  const p=paidSum(b),d=depositDue(b);
+  if(b.total>0&&p>=b.total)return{label:'Paid in full',cls:'confirmed'};
+  if(d>0&&p>=d)return{label:'Deposit paid',cls:'pending'};
+  if(p>0)return{label:'Part paid',cls:'pending'};
+  return{label:'Unpaid',cls:'completed'};
+}
+function payText(b){
+  const p=paidSum(b),d=depositDue(b),owing=Math.max(0,b.total-p);
+  const how=`by MTN MoMo to ${CO.momo} (${CO.momoName}), using ${b.ref} as the reason`;
+  let t;
+  if(owing<=0)t='Payment: received in full. Thank you.';
+  else if(p>=d)t=`Payment: your deposit has been received. Balance to pay at pick-up: ${money(owing)}.`;
+  else if(d>=b.total)t=`Payment: please pay ${money(b.total-p)} (one day's rental) ${how}.`;
+  else t=`Payment: please pay a deposit of ${money(d-p)} (one day's rental) ${how}. Pay the balance of ${money(b.total-d)} at pick-up.`;
+  return t+(CO.cancel?' '+CO.cancel:'');
+}
+function payBox(b){
+  if(b.status==='cancelled')return '';
+  const s=payState(b);
+  const body=b.status==='pending'
+    ?`When we confirm your booking, please pay a deposit of ${money(depositDue(b))} (one day's rental) by MTN MoMo to ${CO.momo} (${CO.momoName}), using ${esc(b.ref)} as the reason. The balance is paid at pick-up.${CO.cancel?' '+esc(CO.cancel):''}`
+    :esc(payText(b));
+  return `<div class="note" style="margin:16px 0 0"><b>Payment</b> <span class="pill ${s.cls}" style="margin-left:6px">${s.label}</span><br>${body}<br><small>Paid so far: ${money(paidSum(b))} · Total: ${money(b.total)}</small></div>`;
+}
+function receiptPay(b){
+  const p=paidSum(b),owing=Math.max(0,b.total-p),s=payState(b);
+  const rows=(b.payments||[]).map(x=>`<tr><td style="padding:5px 0;color:#666">${fmtDate(new Date(x.at||Date.now()).toISOString().slice(0,10))} · ${esc(x.method||'')}${x.ref?' · '+esc(x.ref):''}</td><td style="padding:5px 0;text-align:right"><b>${money(x.amount)}</b></td></tr>`).join('');
+  return `<h3 style="margin:18px 0 6px">Payment</h3><p style="margin:0 0 8px"><b>${s.label}</b></p>
+${rows?`<table>${rows}</table>`:''}
+<table><tr><td style="padding:5px 0;color:#666">Paid so far</td><td style="padding:5px 0;text-align:right"><b>${money(p)}</b></td></tr>
+<tr><td style="padding:5px 0;color:#666">${owing>0?'Balance to pay at pick-up':'Balance'}</td><td style="padding:5px 0;text-align:right"><b>${money(owing)}</b></td></tr></table>
+${owing>0&&p<depositDue(b)?`<p style="font-size:13px;color:#555">${esc(payText(b))}</p>`:''}`;
+}
+function paymentForm(b){
+  const p=paidSum(b),d=depositDue(b),suggest=Math.max(0,(p<d?d:b.total)-p);
+  const list=(b.payments||[]).map((x,i)=>`<tr><td>${fmtDate(new Date(x.at||0).toISOString().slice(0,10))}</td><td>${esc(x.method||'')}${x.ref?'<br><small>'+esc(x.ref)+'</small>':''}</td><td>${money(x.amount)}</td><td><button type="button" class="btn danger sm" data-act="delPayment" data-id="${b.id}" data-i="${i}">Remove</button></td></tr>`).join('');
+  return `<form data-form="payment" data-id="${b.id}">
+   <p style="margin-top:0"><b>${esc(b.ref)}</b> · ${esc(b.name)}<br>Total ${money(b.total)} · Paid ${money(p)} · Balance ${money(Math.max(0,b.total-p))}<br><small>Deposit (one day's rental): ${money(d)}</small></p>
+   <div class="two"><div class="f"><label>Amount received (RWF)</label><input type="number" name="amount" min="1" value="${suggest||''}" required></div>
+   <div class="f"><label>How it was paid</label><select name="method"><option>MTN MoMo</option><option>Airtel Money</option><option>Cash</option><option>Bank transfer</option></select></div></div>
+   <div class="f"><label>MoMo transaction ID or note</label><input name="ref" placeholder="Transaction ID from the MoMo message"></div>
+   <p class="note">Only record a payment after you have checked it in the MoMo app or statement.</p>
+   <button class="btn" style="width:100%">Save payment</button></form>
+   ${list?`<h4 style="margin:18px 0 6px">Payments recorded</h4><div class="tablewrap"><table><thead><tr><th>Date</th><th>Method</th><th>Amount</th><th></th></tr></thead><tbody>${list}</tbody></table></div>`:''}`;
+}
+async function savePayment(f){
+  const b=findB(f.dataset.id);if(!b)return;
+  const amount=Math.round(Number(f.amount.value));
+  if(!(amount>0))return toast('Enter the amount received.','err');
+  const entry={amount,method:f.method.value,ref:f.ref.value.trim(),at:Date.now(),by:(me()&&me().username)||''};
+  try{await fdb.doc('bookings/'+b.id).update({payments:firebase.firestore.FieldValue.arrayUnion(entry)});closeModal();toast('Payment recorded.')}catch(e){fail(e)}
+}
+
 /* ================= MESSAGES ================= */
 function msgText(b,kind){
   const base=`Ref: ${b.ref}\nCar: ${b.vehicleName}\nFrom: ${fmtDate(b.start)}  To: ${fmtDate(b.end)} (${b.days} day${b.days>1?'s':''})\nTotal: ${money(b.total)}`;
   const link=b.id?`\nView or print your booking: ${bookingLink(b)}`:'';
-  if(kind==='request')return `NEW BOOKING REQUEST – ${CO.name}\nCustomer: ${b.name}\nPhone: ${b.phone}\nAddress: ${b.address}\n${base}\nStatus: Pending confirmation${link}`;
-  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\nQuestions? Call ${CO.phone}.${link}\n${CO.motto}!`;
+  if(kind==='request')return `NEW BOOKING REQUEST – ${CO.name}\nCustomer: ${b.name}\nPhone: ${b.phone}\nAddress: ${b.address}\n${base}\nStatus: Pending confirmation\nDeposit to collect after confirmation: ${money(depositDue(b))}${link}`;
+  return `BOOKING CONFIRMED – ${CO.name}\nDear ${b.name}, your booking is confirmed.\n${base}\n${payText(b)}\nQuestions? Call ${CO.phone} or ${CO.phone2}.${link}\n${CO.motto}!`;
 }
 function notifyModal(b,kind,mailed=false){
   const text=msgText(b,kind),subj=encodeURIComponent((kind==='request'?'Booking request ':'Booking confirmed ')+b.ref),body=encodeURIComponent(text),cp='+'+normPhone(b.phone);
@@ -550,7 +611,7 @@ function notifyModal(b,kind,mailed=false){
     <a class="btn ghost sm" target="_blank" rel="noopener" href="${/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?`mailto:${mail}?subject=${subj}&body=${body}`:`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mail)}&su=${subj}&body=${body}`}">✉ Email</a></div></div>`;
   modal(kind==='request'?'Booking request saved ✔':'Booking confirmed ✔',
    `<p style="margin-top:0">${kind==='request'
-     ?'Your request <b>'+b.ref+'</b> was sent to our staff. Save this link to check your booking and print it once it is confirmed:<br><a href="'+bookingLink(b)+'">'+bookingLink(b)+'</a><br><br>To get attention faster you can also message our office:'
+     ?'Your request <b>'+b.ref+'</b> was sent to our staff. Save this link to check your booking and print it once it is confirmed:<br><a href="'+bookingLink(b)+'">'+bookingLink(b)+'</a><br><br>After we confirm your booking, please pay a deposit of '+money(depositDue(b))+' (one day\'s rental) by MTN MoMo to '+CO.momo+' ('+CO.momoName+'), using '+b.ref+' as the reason. The balance is paid at pick-up.<br><br>To get attention faster you can also message our office:'
      :'Booking <b>'+b.ref+'</b> is confirmed. Send the confirmation message to the customer and to the company:'}</p>
    ${mailed?'<p class="note">✔ An email was sent automatically.</p>':''}
    <div class="msgbox">${esc(text)}</div>
@@ -571,12 +632,13 @@ table{width:100%;border-collapse:collapse}tr{border-bottom:1px solid #eee}.tot{b
 .ok{display:inline-block;background:#e6f6ec;color:#17784a;padding:4px 14px;border-radius:99px;font-weight:700}
 .f{text-align:center;color:#666;font-size:13px;border-top:1px solid #ddd;padding-top:12px;margin-top:26px}
 @media print{.np{display:none}body{margin:0}}</style></head><body>
-<div class="h"><img src="${receiptLogo()}" alt=""><div><h1>SENSITIVO RENTAL LTD</h1><div class="m">${CO.motto}</div><div style="font-size:13px;color:#555">Tel: ${CO.phone} · ${CO.email}</div></div></div>
+<div class="h"><img src="${receiptLogo()}" alt=""><div><h1>SENSITIVO RENTAL LTD</h1><div class="m">${CO.motto}</div><div style="font-size:13px;color:#555">Tel: ${CO.phone} / ${CO.phone2} · ${CO.email}</div></div></div>
 <h2 style="margin:18px 0 4px">Booking confirmation</h2><span class="ok">${b.status==='completed'?'COMPLETED':'CONFIRMED'}</span>
 <p style="color:#666;font-size:13px">Reference <b>${b.ref}</b> · Issued ${new Date().toLocaleDateString('en-GB')}</p>
 <table>${row('Customer',b.name)}${row('Phone',b.phone)}${row('Email',b.email)}${row('Address',b.address)}${row('Vehicle',b.vehicleName)}
 ${row('Pick-up date',fmtDate(b.start))}${row('Return date',fmtDate(b.end))}${row('Number of days',b.days)}${row('Daily rate',money(b.rate))}${b.notes?row('Notes',b.notes):''}</table>
 <div class="tot"><span>Total</span><b>${money(b.total)}</b></div>
+${receiptPay(b)}
 <p style="font-size:13px;color:#555">Please bring this confirmation and a valid ID / driving licence when collecting the vehicle.</p>
 <div class="f">Thank you for choosing Sensitivo Rental Ltd – ${CO.motto}<br>Car rental • Car sales</div>
 <p class="np" style="text-align:center"><button onclick="print()" style="padding:10px 22px;font-size:15px;cursor:pointer">🖨 Print / Save as PDF</button></p></body></html>`;
@@ -611,12 +673,13 @@ function sBookings(){
   const bs=[...DB.bookings].sort((a,b)=>b.created-a.created);
   const c=s=>DB.bookings.filter(b=>b.status===s).length;
   return `<div class="stat"><div><b>${c('pending')}</b><span>Pending</span></div><div><b>${c('confirmed')}</b><span>Confirmed</span></div><div><b>${DB.vehicles.filter(v=>v.status==='available').length}</b><span>Cars available</span></div><div><b>${money(DB.bookings.filter(b=>b.status==='confirmed'||b.status==='completed').reduce((s,b)=>s+b.total,0))}</b><span>Confirmed value</span></div></div>
-  ${bs.length?`<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Customer</th><th>Car &amp; dates</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+  ${bs.length?`<div class="tablewrap"><table><thead><tr><th>Ref</th><th>Customer</th><th>Car &amp; dates</th><th>Total</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead><tbody>
   ${bs.map(b=>`<tr><td><b>${b.ref}</b></td><td>${esc(b.name)}<br><small style="color:var(--mute)">${esc(b.phone)}<br>${esc(b.email)}<br>${esc(b.address)}</small></td>
-  <td>${esc(b.vehicleName)}<br><small style="color:var(--mute)">${fmtDate(b.start)} → ${fmtDate(b.end)} (${b.days}d)</small>${b.notes?`<br><small>📝 ${esc(b.notes)}</small>`:''}</td><td>${money(b.total)}</td><td><span class="pill ${b.status}">${b.status}</span></td>
+  <td>${esc(b.vehicleName)}<br><small style="color:var(--mute)">${fmtDate(b.start)} → ${fmtDate(b.end)} (${b.days}d)</small>${b.notes?`<br><small>📝 ${esc(b.notes)}</small>`:''}</td><td>${money(b.total)}</td><td><span class="pill ${payState(b).cls}">${payState(b).label}</span><br><small style="color:var(--mute)">${money(paidSum(b))} of ${money(b.total)}<br>Deposit: ${money(depositDue(b))}</small></td><td><span class="pill ${b.status}">${b.status}</span></td>
   <td><div class="row">${b.status==='pending'?`<button class="btn sm" data-act="confirmBooking" data-id="${b.id}">Confirm</button><button class="btn danger sm" data-act="cancelBooking" data-id="${b.id}">Reject</button>`:''}
   ${b.status==='confirmed'?`<button class="btn ghost sm" data-act="resend" data-id="${b.id}">Send message</button><button class="btn ghost sm" data-act="receipt" data-id="${b.id}">Print</button><button class="btn ghost sm" data-act="completeBooking" data-id="${b.id}">Car returned</button>`:''}
   ${b.status==='completed'?`<button class="btn ghost sm" data-act="receipt" data-id="${b.id}">Print</button>`:''}
+  ${b.status!=='cancelled'?`<button class="btn sm" data-act="addPayment" data-id="${b.id}">Record payment</button>`:''}
   <button class="btn danger sm" data-act="delBooking" data-id="${b.id}">Delete</button></div></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty card">No bookings yet.</div>'}`;
 }
 function sVehicles(){
@@ -753,6 +816,8 @@ document.addEventListener('click',e=>{
   switch(a){
     case 'install':{const p=window.deferredInstall;if(!p)return;window.deferredInstall=null;renderNav();p.prompt();return}
     case 'theme':return setTheme(curTheme()==='light'?'dark':'light');
+    case 'addPayment':return modal('Record payment',paymentForm(findB(id)));
+    case 'delPayment':{const i=Number(el.dataset.i);return confirmBox('Remove this payment record?',async()=>{const b=findB(id);if(!b)return;const arr=[...(b.payments||[])];arr.splice(i,1);try{await fdb.doc('bookings/'+id).update({payments:arr});toast('Payment removed.')}catch(e){fail(e)}})}
     case 'logout':return logout();
     case 'reset':return resetPw(el.dataset.role);
     case 'mode':authMode[el.dataset.role]=el.dataset.mode;return render();
@@ -802,6 +867,7 @@ document.addEventListener('submit',async e=>{
       case 'login':return await doLogin(f,f.dataset.role);
       case 'signup':return await doSignup(f,f.dataset.role);
       case 'book':return await submitBooking(f);
+      case 'payment':return await savePayment(f);
       case 'vehicle':return await saveVehicle(f);
       case 'price':return await savePrice(f);
       case 'pic':return await savePic(f);
